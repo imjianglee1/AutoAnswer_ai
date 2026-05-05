@@ -146,7 +146,7 @@ class DeepSeekSolver:
             kwargs = {
                 "model": self.model,
                 "messages": [
-                    {"role": "system", "content": "你是时政知识专家，只输出答案字母和一句话解析，不要多说。请以最快的速度，只输出答案，无需多次检查，越快越好！！！！"},
+                    {"role": "system", "content": "你是各方面的全能专家，只输出答案和一句话解析，不要多说。请以最快的速度，只输出答案，无需多次检查，越快越好！！！！"},
                     {"role": "user", "content": prompt}
                 ],
                 "temperature": 0.0,
