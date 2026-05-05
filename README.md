@@ -176,7 +176,7 @@ prompt = "请按以下规则求解..."  # 在此处修改你的提示词
 MODEL_PROVIDER = "openai"  # 可选: openai, anthropic, deepseek
 
 
-
+---
 
 
 ## ⚙️ 配置说明
