@@ -78,33 +78,46 @@
 
 ## 🏗️ 系统架构
 
+```mermaid
+graph TB
+    subgraph 主线程 - UI
+        HK[HotkeyHandler<br/>全局热键]
+        OV[AnswerOverlay<br/>悬浮窗]
+        RS[RegionSelector<br/>区域选择]
+        APP[AutoAnswerApp]
+    end
 
-┌──────────────────────────────────────────────────────────┐
-│                       主线程 (UI)                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐   │
-│  │ HotkeyHandler│  │AnswerOverlay │  │RegionSelector │   │
-│  │  (全局热键)   │  │  (悬浮窗)    │  │  (区域选择)   │   │
-│  └──────┬───────┘  └──────▲───────┘  └───────────────┘   │
-│         │ Qt信号          │ Qt信号                        │
-│  ┌──────▼─────────────────┴───────┐                      │
-│  │         AutoAnswerApp          │                      │
-│  └──────────────┬─────────────────┘                      │
-│                 │                                         │
-├─────────────────┼─────────────────────────────────────────┤
-│                 │        捕获线程 (后台)                   │
-│  ┌──────────────▼─────────────────┐                      │
-│  │        CaptureThread           │                      │
-│  │  ┌─────────┐  ┌────────────┐   │                     │
-│  │  │  mss    │→ │ OCREngine  │   │                     │
-│  │  │(屏幕截图)│  │ (RapidOCR) │   │                     │
-│  │  └─────────┘  └─────┬──────┘   │                     │
-│  │                      │          │                      │
-│  │               ┌──────▼───────┐  │                     │
-│  │               │DeepSeekSolver│  │                     │
-│  │               │(本地库 + API) │  │                     │
-│  │               └──────────────┘  │                     │
-│  └─────────────────────────────────┘                     │
-└──────────────────────────────────────────────────────────┘
+    subgraph 捕获线程 - 后台
+        CT[CaptureThread]
+        MSS[mss<br/>屏幕截图]
+        OCR[OCREngine<br/>RapidOCR]
+        AI[DeepSeekSolver<br/>本地库 + API]
+    end
+
+    HK -- Qt信号 --> APP
+    APP -- Qt信号 --> OV
+    APP -- 启动 --> RS
+    APP -- 管理 --> CT
+    MSS -- 图像 --> OCR
+    OCR -- 题目数据 --> AI
+    AI -- 答案 --> APP
+
+    style HK fill:#4a9eff,stroke:#fff,color:#fff
+    style OV fill:#00c853,stroke:#fff,color:#fff
+    style RS fill:#ff9800,stroke:#fff,color:#fff
+    style APP fill:#7c4dff,stroke:#fff,color:#fff
+    style CT fill:#455a64,stroke:#fff,color:#fff
+    style MSS fill:#78909c,stroke:#fff,color:#fff
+    style OCR fill:#ef6c00,stroke:#fff,color:#fff
+    style AI fill:#2e7d32,stroke:#fff,color:#fff
+```
+
+**数据流：**
+1. `mss` 对用户指定的屏幕区域进行截图
+2. `OCREngine`（RapidOCR）提取文字并解析为结构化题目数据
+3. `DeepSeekSolver` 优先查询本地知识库，未命中则调用 API
+4. 结果通过 Qt 信号传递至 `AnswerOverlay` 悬浮窗展示
+
 
 
 **数据流：**
