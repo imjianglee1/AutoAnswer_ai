@@ -119,13 +119,6 @@ graph TB
 4. 结果通过 Qt 信号传递至 `AnswerOverlay` 悬浮窗展示
 
 
-
-**数据流：**
-1. `mss` 对用户指定的屏幕区域进行截图
-2. `OCREngine`（RapidOCR）提取文字并解析为结构化题目数据
-3. `DeepSeekSolver` 优先查询本地知识库，未命中则调用 API
-4. 结果通过 Qt 信号传递至 `AnswerOverlay` 悬浮窗展示
-
 ---
 
 ## 🚀 快速开始
@@ -139,7 +132,7 @@ graph TB
 
 
 # 克隆仓库
-git clone https://github.com/yourusername/AutoAnswer.git
+git clone https://github.com/imjianglee1/AutoAnswer_ai.git
 cd AutoAnswer
 
 # 安装依赖
