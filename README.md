@@ -1,8 +1,10 @@
-你说的"识别不到格式"应该是系统架构那段的代码块（` ``` `）丢失了，导致 ASCII 图表在 GitHub 上渲染成一坨乱码。以下是修复后的完整版：
-
-```markdown
 # 🧠 AutoAnswer 智答助手 — AI 智能屏幕答题工具
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
+![RapidOCR](https://img.shields.io/badge/OCR-RapidOCR-orange?logo=opencv&logoColor=white)
+![DeepSeek](https://img.shields.io/badge/AI-DeepSeek-green?logo=openai&logoColor=white)
+![PyQt5](https://img.shields.io/badge/GUI-PyQt5-purple?logo=qt&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
 > **AutoAnswer — AI-Powered Screen OCR Quiz Solver**
 >
@@ -76,7 +78,7 @@
 
 ## 🏗️ 系统架构
 
-```
+
 ┌──────────────────────────────────────────────────────────┐
 │                       主线程 (UI)                        │
 │  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐   │
@@ -103,7 +105,7 @@
 │  │               └──────────────┘  │                     │
 │  └─────────────────────────────────┘                     │
 └──────────────────────────────────────────────────────────┘
-```
+
 
 **数据流：**
 1. `mss` 对用户指定的屏幕区域进行截图
@@ -122,30 +124,30 @@
 
 ### 安装依赖
 
-```bash
+
 # 克隆仓库
 git clone https://github.com/yourusername/AutoAnswer.git
 cd AutoAnswer
 
 # 安装依赖
 pip install PyQt5 mss Pillow keyboard rapidocr_onnxruntime openai
-```
+
 
 ### 配置 API 密钥
 
 打开 `config.py`，填入你的 DeepSeek API 密钥：
 
-```python
+
 DEEPSEEK_API_KEY = "sk-your-api-key-here"
-```
+
 
 > 🔑 前往 [DeepSeek 开放平台](https://platform.deepseek.com/) 获取密钥
 
 ### 启动运行
 
-```bash
+
 python main.py
-```
+
 
 首次启动：
 1. 按 `Ctrl+F1` 框选包含题目的屏幕区域
@@ -182,7 +184,7 @@ python main.py
 
 ## 📁 项目结构
 
-```
+
 AutoAnswer/
 ├── main.py               # 程序入口，线程调度，快捷键管理
 ├── ocr_engine.py         # RapidOCR 封装 — 图像预处理、文字提取、题目解析
@@ -192,7 +194,7 @@ AutoAnswer/
 ├── config.py             # 集中配置 — API 密钥、快捷键、本地知识库
 ├── capture_region.json   # 持久化的捕获区域坐标（自动生成）
 └── README.md             # 本文件
-```
+
 
 ---
 
@@ -248,13 +250,13 @@ RapidOCR 使用 ONNX Runtime 作为推理后端，无需安装庞大的 PaddlePa
 
 编辑 `config.py` 中的 `LOCAL_KNOWLEDGE` 字典：
 
-```python
+
 "你的条目名称": {
     "keys": ["关键词1", "关键词2", "关键词3"],  # 匹配触发词
     "answer": "A",                               # 正确选项字母
     "detail": "简要解释说明"                       # 可选的解析
 },
-```
+
 
 识别出的题目文本中只要包含至少一个关键词，即可触发本地匹配。
 
@@ -291,7 +293,7 @@ RapidOCR 使用 ONNX Runtime 作为推理后端，无需安装庞大的 PaddlePa
 <p align="center">
   <sub>使用 RapidOCR、DeepSeek 和 PyQt5 构建 ❤️</sub>
 </p>
-```
+
 
 ---
 
@@ -301,5 +303,6 @@ RapidOCR 使用 ONNX Runtime 作为推理后端，无需安装庞大的 PaddlePa
 |---|------|------|
 | 1 | 徽章用 `<p align="center">` + `<img>` 标签，部分 Markdown 渲染器不识别 HTML | 改为纯 Markdown `![alt](url)` 语法，GitHub 100% 兼容 |
 | 2 | 双语标题用 `<p><b>` 嵌套，容易被吞 | 改为 `>` 引用块语法 |
-| 3 | 系统架构 ASCII 图表没有被 ` ``` ` 包裹 | 加上 ` ```  ``` ` 代码块，确保等宽渲染 |
+| 3 | 系统架构 ASCII 图表没有被 `  ` 包裹 | 加上 `    ` 代码块，确保等宽渲染 |
 | 4 | 顶部简介段落加入了之前你认可的吸引人的中文短描述 | 直接内嵌在标题下方 |
+```
