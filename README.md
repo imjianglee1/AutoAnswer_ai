@@ -162,6 +162,23 @@ python main.py
 
 ---
 
+
+## 配置说明
+
+- **修改提示词**：请编辑 `ai_solver.py` 文件第 149 行，调整 `prompt` 变量内容即可。
+- **更换模型提供商**：请编辑 `config.py` 文件，修改 `MODEL_PROVIDER` 相关配置项。
+
+```python
+# ai_solver.py 第149行示例
+prompt = "请按以下规则求解..."  # 在此处修改你的提示词
+
+# config.py 示例
+MODEL_PROVIDER = "openai"  # 可选: openai, anthropic, deepseek
+
+
+
+
+
 ## ⚙️ 配置说明
 
 所有配置项集中在 `config.py` 中：
